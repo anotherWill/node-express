@@ -18,5 +18,8 @@ run: npm run dev
 ```
 git checkout branchName
 ```
-
+### 合并分支
+```
+git merge branchName
+```
 ### 全局安装 supervisor 用于监听 node 端文件变化
