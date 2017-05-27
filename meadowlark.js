@@ -10,10 +10,7 @@ var test2 = require('./lib/test-module2.js');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-
 app.set('port', process.env.PORT || 3000);
-
-
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
 	res.render('home');
@@ -25,7 +22,6 @@ app.get('/about', function(req, res) {
 		test1: test1(),
 		test2: test2.test2()
 	});
-
 });
 // 定制404 页面
 app.use(function(req, res) {
