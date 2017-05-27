@@ -1,10 +1,10 @@
 {
   "name": "express-project",
   "version": "1.0.0",
-  "description": "learing express",
+  "description": "learning express",
   "main": "meadowlark.js",
   "scripts": {
-    "dev": "node meadowlark.js"
+    "dev": "supervisor meadowlark.js"
   },
   "author": "jwj",
   "license": "MIT",
