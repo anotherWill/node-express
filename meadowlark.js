@@ -26,7 +26,8 @@ app.get('/about', function(req, res) {
 	res.render('about', {
 		fortune: fortune.getfortune(),
 		test1: test1(),
-		test2: test2.test2()
+		test2: test2.test2(),
+		pageTestScript: '/qa/tests-about.js'
 	});
 });
 // 定制404 页面
