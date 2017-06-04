@@ -10,8 +10,8 @@ var hbs = handlebars.create({
 	layoutsDir: './views/layouts',
   defaultLayout: 'main',
   extname: '.hbs'
-
 });
+
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
