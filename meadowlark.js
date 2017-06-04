@@ -1,26 +1,32 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var handlebars = require('express3-handlebars')
-	.create({
-		defaultLayout: 'main'
-	});
 var fortune = require('./lib/fortune.js');
 var test1 = require('./lib/test-module1.js');
 var test2 = require('./lib/test-module2.js');
 
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
+var hbs = handlebars.create({
+	layoutsDir: './views/layouts',
+  defaultLayout: 'main',
+  extname: '.hbs'
+
+});
+app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
+
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
 
 app.use(function(req, res, next) {
-	res.locals.showTests = app.get('env') !== 'production' &&
-		req.query.test === '1';
+	res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+	console.log('`````````````````````````````````````````')
+	console.log(res.locals.showTests)
 	next();
 });
 app.get('/', function(req, res) {
 	res.render('home');
-
 });
 app.get('/about', function(req, res) {
 	res.render('about', {
