@@ -11,6 +11,8 @@ var hbs = handlebars.create({
   defaultLayout: 'main',
   extname: '.hbs'
 });
+
+app.disable('x-powered-by');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
