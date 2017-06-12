@@ -1,1 +1,34 @@
 <h1>Welcome to Meadowlark Travel</h1>
+<ul>
+  {{#each jsonData.tours}} 
+    <li>
+      {{name}} - {{price}} 
+      {{!-- 上下文在tours中，../返回上一级 --}}
+      {{#if ../jsonData.currencies}} 
+        {{!-- 块级表达式 --}}
+        ({{../../jsonData.currency.abbrev}}) 
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+{{#unless undefinedVar}}
+  <p>When var is undefinded.</p>
+{{/unless}} 
+{{#if jsonData.specialsUrl}} 
+  <p>
+  Check out our
+    <a href="{{jsonData.specialsUrl}}">specials!</a>
+  </p>
+{{else}}
+  <p>Please check back often for specials.</p>
+{{/if}}
+<p>
+  {{#each jsonData.currencies}}
+    {{!-- .和this指当前context --}}
+    <a href="#" class="currency">{{.}}</a>
+    <a href="#" class="currency">{{this}}</a>
+  {{else}}  {{!-- 当each中data为空 --}}
+    Unfortunately, we currently only accept {{currency.name}}. 
+  {{/each}}
+</p>
+</p>
