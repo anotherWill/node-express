@@ -51,8 +51,10 @@ app.get('/about', function(req, res) {
 // 定制404 页面
 app.use(function(req, res) {
 	res.status(404);
-	res.render('404');
-
+	res.render('404', {
+		// null 不使用布局 main.hbs,自定义布局
+		layout: null 
+	});
 });
 // 定制500 页面
 app.use(function(err, req, res, next) {
