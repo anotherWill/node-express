@@ -21,6 +21,15 @@ app.set('view cache', true);
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
 
+// 中间件套用组件
+app.use(function(req, res, next) {
+	if (!res.locals.partials) {
+		res.locals.partials = {};
+	}
+	res.locals.partials.weather = getWeatherData();
+	next();
+});
+
 app.get('/', function(req, res) {
 	var jsonData = {
 		currency: {
@@ -48,12 +57,13 @@ app.get('/about', function(req, res) {
 		test2: test2.test2()
 	});
 });
+
 // 定制404 页面
 app.use(function(req, res) {
 	res.status(404);
 	res.render('404', {
 		// null 不使用布局 main.hbs,自定义布局
-		layout: null 
+		layout: null
 	});
 });
 // 定制500 页面
@@ -66,3 +76,27 @@ app.listen(app.get('port'), function() {
 	console.log('Express started on http://localhost:' +
 		app.get('port') + '; press Ctrl-C to terminate.');
 });
+
+function getWeatherData() {
+	return {
+		locations: [{
+			name: 'Portland',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Portland.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/cloudy.gif',
+			weather: 'Overcast',
+			temp: '54.1 F (12.3 C)',
+		}, {
+			name: 'Bend',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Bend.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/partlycloudy.gif',
+			weather: 'Partly Cloudy',
+			temp: '55.0 F (12.8 C)',
+		}, {
+			name: 'Manzanita',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Manzanita.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/rain.gif',
+			weather: 'Light Rain',
+			temp: '55.0 F (12.8 C)',
+		}, ],
+	};
+}
