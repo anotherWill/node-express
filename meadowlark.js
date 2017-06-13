@@ -12,7 +12,13 @@ var hbs = handlebars.create({
 	extname: '.hbs',
 	helpers: {
 		section: function(name, options) {
-			if (!this._sections) this._sections = {};
+			if (!this._sections) {
+				this._sections = {};
+			} 
+			// console.log('.....................')
+			// console.log(name)
+			// console.log(this)
+			// console.log('.....................')
 			this._sections[name] = options.fn(this);
 			return null;
 		}
@@ -57,6 +63,7 @@ app.get('/', function(req, res) {
 		jsonData: jsonData
 	});
 });
+
 app.get('/about', function(req, res) {
 	res.render('about', {
 		fortune: fortune.getfortune(),
