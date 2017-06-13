@@ -14,7 +14,7 @@ var hbs = handlebars.create({
 		section: function(name, options) {
 			if (!this._sections) {
 				this._sections = {};
-			} 
+			}
 			// console.log('.....................')
 			// console.log(name)
 			// console.log(this)
@@ -30,8 +30,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('view cache', true);
-
 app.set('port', process.env.PORT || 3000);
+
+app.use(require('body-parser')());
 app.use(express.static(__dirname + '/public'));
 
 // 中间件套用组件
@@ -75,7 +76,26 @@ app.get('/about', function(req, res) {
 // test hbs section
 app.get('/hbs-section', function(req, res) {
 	res.render('hbs-section');
-})
+});
+
+app.get('/newsletter', function(req, res) {
+	// 我们会在后面学到 CSRF……目前，只提供一个虚拟值 
+	res.render('newsletter', {
+		csrf: 'CSRF token goes here'
+	});
+});
+
+app.post('/process', function(req, res){ 
+    console.log('Form (from querystring): ' + req.query.form); 
+    console.log('CSRF token (from hidden form field): ' + req.body._csrf); 
+    console.log('Name (from visible form field): ' + req.body.name); 
+    console.log('Email (from visible form field): ' + req.body.email); 
+    res.redirect(303, '/thank-you'); 
+});
+
+app.get('/thank-you', function(req, res) {
+	res.render('thank-you');
+});
 
 // 定制404 页面
 app.use(function(req, res) {
