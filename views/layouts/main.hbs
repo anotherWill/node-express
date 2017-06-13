@@ -2,10 +2,13 @@
 <html>
 	<head>
 		<title>Meadowlark Travel</title>
+    {{!-- 引用 hbs helper --}}
+    {{{_sections.head}}}
 	</head>
 	<body>
 		<header><img src="/img/logo.png" alt="Meadowlark Travel Logo"></header>
 		{{!- 内容中有标签用三对括号 --}}
 		{{{body}}}
+    {{{_sections.jquery}}}
 	</body>
 </html>

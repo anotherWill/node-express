@@ -9,7 +9,14 @@ var test2 = require('./lib/test-module2.js');
 var hbs = handlebars.create({
 	layoutsDir: './views/layouts',
 	defaultLayout: 'main',
-	extname: '.hbs'
+	extname: '.hbs',
+	helpers: {
+		section: function(name, options) {
+			if (!this._sections) this._sections = {};
+			this._sections[name] = options.fn(this);
+			return null;
+		}
+	}
 });
 
 app.disable('x-powered-by');
@@ -57,6 +64,11 @@ app.get('/about', function(req, res) {
 		test2: test2.test2()
 	});
 });
+
+// test hbs section
+app.get('/hbs-section', function(req, res) {
+	res.render('hbs-section');
+})
 
 // 定制404 页面
 app.use(function(req, res) {
