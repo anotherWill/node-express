@@ -10,6 +10,7 @@ run: npm run dev
 创建远程分支
 1、git checkout -b branchName
 2、git push -u origin branchName
+|| git push origin refs/heads/localbranch:refs/heads/feature/remotebranch
 3、git branch -a
 ```
 
